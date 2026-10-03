@@ -1,10 +1,9 @@
 <div align="center">
 
-# 🔐 IBM HashiCorp Vault Dev Container
+# 🔐 IBM HashiCorp Vault Super Dev Container
 
 **A ready-to-run HashiCorp Vault playground. Open it, and you have a running Vault with the tools around it.**
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/star3am/ibm-hashicorp-vault-devcontainer)
 [![Open in Dev Containers](https://img.shields.io/static/v1?label=Dev%20Containers&message=Open&color=ffcf25&logo=visualstudiocode&logoColor=15202b&labelColor=15202b)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/star3am/ibm-hashicorp-vault-devcontainer)
 
 ![Vault](https://img.shields.io/badge/Vault-latest-ffcf25?logo=vault&logoColor=15202b&labelColor=15202b)
@@ -14,6 +13,16 @@
 ![Platform](https://img.shields.io/badge/arch-amd64%20%7C%20arm64-lightgrey)
 
 </div>
+
+---
+
+## 🚀 Quick start
+
+One click gets you a running Vault in your browser, with nothing to install:
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/star3am/ibm-hashicorp-vault-devcontainer)
+
+Prefer your own machine? See [Getting started](#-getting-started).
 
 ---
 
@@ -133,7 +142,7 @@ flowchart LR
 
 ---
 
-## 🚀 Quick start
+## 🧭 Getting started
 
 ### Option 1: GitHub Codespaces (no local install)
 
