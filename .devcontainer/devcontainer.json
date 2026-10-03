@@ -15,11 +15,12 @@
 		"set-git-config-gpg-program": "git config --global gpg.program /usr/bin/gpg",
 		"install-pre-commit-hooks": "[ ! -f .pre-commit-config.yaml ] || pre-commit install --install-hooks"
 	},
+	"postAttachCommand": "bash /etc/update-motd.d/00-header --first-run",
 	"forwardPorts": [8200],
 	"portsAttributes": {
 		"8200": {
 			"label": "Vault UI & API",
-			"onAutoForward": "notify"
+			"onAutoForward": "openBrowser"
 		}
 	},
 	"customizations": {

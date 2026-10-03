@@ -61,7 +61,7 @@ Everything below is already installed when the container opens.
 | Tool | Version | What it's for | Try it |
 |---|---|---|---|
 | **Vault** server + CLI | `latest` image, set with the `VAULT_VERSION` build arg | Secrets management. Runs in the background in **dev mode**: in-memory, unsealed, root token `root`. Its logs are in `/tmp/vault.log` | `vault status` |
-| **Vault UI** | Same as Vault | Web console for secrets, policies and auth methods | [localhost:8200/ui](http://localhost:8200/ui) |
+| **Vault UI** | Same as Vault | Web console for secrets, policies and auth methods. Opens in your browser automatically | [localhost:8200/ui](http://localhost:8200/ui) |
 | **Vault MCP Server** | `0.2.0`, set with the `VAULT_MCP_SERVER_VERSION` build arg | Lets AI assistants (Claude Code, Copilot agent mode) operate Vault through plain-language prompts | `vault-mcp-server --version` |
 | **Terraform** | Latest release when the image is built | Manage Vault as code with the [Vault provider](https://registry.terraform.io/providers/hashicorp/vault/latest/docs) | `terraform version` |
 | **HCP CLI** (`hcp`) | Latest release when the image is built | Sign in to HashiCorp Cloud Platform and manage organisations, projects, IAM and service principals | `hcp auth login` |
@@ -147,8 +147,8 @@ flowchart LR
 ### Option 1: GitHub Codespaces (no local install)
 
 1. Click **[Open in GitHub Codespaces](https://codespaces.new/star3am/ibm-hashicorp-vault-devcontainer)**.
-2. Wait for the container to build. The welcome banner shows the Vault UI URL.
-3. That's it.
+2. Wait for the container to build. When it's ready, a terminal opens with the **Vault welcome banner**, showing the UI URL, your token and handy commands.
+3. Open a new terminal (**Ctrl+Shift+`**) and start using Vault. Every new terminal shows the banner.
 
 ### Option 2: Local VS Code
 
@@ -166,7 +166,7 @@ When VS Code prompts you, click **Reopen in Container**, or run `F1` → **Dev C
 
 ### Log in to the UI
 
-Open **http://localhost:8200/ui**, choose **Token**, and enter `root`.
+The Vault UI **opens in a browser tab automatically** when the container starts. If it doesn't, for example because a pop-up blocker stopped it, open **http://localhost:8200/ui**. In Codespaces, use the **Ports** tab and click the globe icon next to *Vault UI & API*. Then choose **Token** and enter `root`.
 
 ---
 

@@ -13,6 +13,11 @@ else
   VAULT_UI_URL="http://localhost:8200/ui"
 fi
 
+# On first run (postAttachCommand) Vault may still be starting, so give it a moment
+if [[ $1 == --first-run ]]; then
+  for _ in $(seq 1 15); do vault status > /dev/null 2>&1 && break; sleep 1; done
+fi
+
 if vault status > /dev/null 2>&1; then
   VAULT_STATUS='\e[32mrunning'
 else
@@ -38,3 +43,8 @@ printf '\e[33;1;93m'" * Read a Secret: \e[38;5;198m vault kv get secret/hello\n"
 printf '\e[33;1;93m'" * Login to GitHub: \e[38;5;198m gh auth login\n"
 printf '\e[33;1;93m'" * Login to HCP: \e[38;5;198m hcp auth login\n"
 printf '%b\n' "${RESET}"
+
+if [[ $1 == --first-run ]]; then
+  printf '\e[1;92m%s\e[0m\n' "👉 Your Vault environment is ready! Open a new terminal to get started:"
+  printf '\e[1;92m%s\e[0m\n\n' "   Terminal → New Terminal, or press Ctrl+Shift+\` (Cmd+Shift+\` on a Mac)"
+fi
