@@ -1,0 +1,27 @@
+---
+services:
+  vault-devcontainer:
+    tty: true
+    # Build the container from the Dockerfile before we run it
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # Allows Vault to lock memory (mlock) so secrets are never swapped to disk
+    cap_add:
+      - IPC_LOCK
+    # Run Vault in dev mode as the container's main process (in-memory, unsealed, root token "root")
+    command: ["server", "-dev"]
+    ports:
+      - "8200:8200" # vault api and ui
+    volumes:
+      # Mounts the project folder into the container
+      - "../:/app"
+      # Mount your ~/.ssh folder into the container
+      # for Authenticating to Github
+      - "~/.ssh:/home/vault/.ssh"
+      # For GPG Auth to Github
+      - "~/.gnupg:/home/vault/.gnupg"
+    working_dir: "/app"
+    environment:
+      - GPG_TTY=/dev/pts/1
+      - VAULT_ADDR=http://127.0.0.1:8200

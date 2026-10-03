@@ -1,0 +1,88 @@
+{
+	"name": "Hashicorp - Vault",
+	"dockerComposeFile": "./docker-compose.yml",
+	"service": "vault-devcontainer",
+	"workspaceFolder": "/app",
+	"remoteUser": "vault",
+	"shutdownAction": "stopCompose",
+	"containerEnv": {
+		"VAULT_ADDR": "http://127.0.0.1:8200"
+	},
+	"postStartCommand": {
+		"reset-vault-token": "echo root > ~/.vault-token && chmod 600 ~/.vault-token",
+		"set-git-config-safe-directory": "git config --global --add safe.directory ${containerWorkspaceFolder}",
+		"set-git-config-line-endings": "git config --global core.autocrlf input",
+		"set-git-config-gpg-program": "git config --global gpg.program /usr/bin/gpg",
+		"install-pre-commit-hooks": "[ ! -f .pre-commit-config.yaml ] || pre-commit install --install-hooks"
+	},
+	"forwardPorts": [8200],
+	"portsAttributes": {
+		"8200": {
+			"label": "Vault UI & API",
+			"onAutoForward": "notify"
+		}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"dbaeumer.vscode-eslint",
+				"esbenp.prettier-vscode",
+				"hashicorp.terraform",
+				"nhoizey.gremlins",
+				"hashicorp.hcl",
+				"hashicorp.sentinel",
+				"hashicorp.vault-radar",
+				"owenfarrell.vscode-vault",
+				"anthropic.claude-code",
+				"redhat.vscode-yaml",
+				"johnpapa.vscode-peacock"
+			],
+			"mcp": {
+				"servers": {
+					"vault-mcp-server": {
+						"type": "stdio",
+						"command": "vault-mcp-server",
+						"args": ["stdio"],
+						"env": {
+							"VAULT_ADDR": "http://127.0.0.1:8200",
+							"VAULT_TOKEN": "root"
+						}
+					}
+				}
+			},
+			"settings": {
+				"terminal.integrated.defaultProfile.linux": "bash",
+				"workbench.colorCustomizations": {
+					"activityBar.activeBackground": "#ffda58",
+					"activityBar.activeBorder": "#15202b",
+					"activityBar.background": "#ffda58",
+					"activityBar.foreground": "#15202b",
+					"activityBar.inactiveForeground": "#15202b99",
+					"activityBarBadge.background": "#009f7c",
+					"activityBarBadge.foreground": "#e7e7e7",
+					"activityBarTop.activeBackground": "#ffda58",
+					"activityBarTop.activeBorder": "#15202b",
+					"activityBarTop.background": "#ffda58",
+					"activityBarTop.foreground": "#15202b",
+					"activityBarTop.inactiveForeground": "#15202b99",
+					"commandCenter.border": "#15202b99",
+					"commandCenter.foreground": "#15202b",
+					"sash.hoverBorder": "#ffda58",
+					"statusBar.background": "#ffcf25",
+					"statusBar.debuggingBackground": "#ffcf25",
+					"statusBar.debuggingForeground": "#15202b",
+					"statusBar.foreground": "#15202b",
+					"statusBar.inactiveBackground": "#ffcf25",
+					"statusBarItem.hoverBackground": "#f1bc00",
+					"statusBarItem.remoteBackground": "#009f7c",
+					"statusBarItem.remoteForeground": "#15202b",
+					"titleBar.activeBackground": "#ffcf25",
+					"titleBar.activeForeground": "#15202b",
+					"titleBar.inactiveBackground": "#ffcf2599",
+					"titleBar.inactiveForeground": "#15202b99"
+				},
+				"peacock.color": "#ffcf25"
+			}
+		}
+	}
+}

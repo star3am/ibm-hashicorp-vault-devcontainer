@@ -1,0 +1,64 @@
+# --- Vault -------------------------------------------------------------------
+# Never commit tokens, shared env, unseal keys or local data
+.vault-token
+.vault.env
+*.vault-token
+vault-init*.json
+unseal-keys*
+*.hcl.local
+vault-data/
+audit*.log
+
+# --- Secrets & credentials ---------------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+*.jks
+id_rsa*
+id_ed25519*
+credentials.json
+*.license
+*.hclic
+
+# --- Terraform ---------------------------------------------------------------
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+!*.tfvars.example
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
+*.tfplan
+
+# --- Editors & OS ------------------------------------------------------------
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/mcp.json
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# --- Claude Code (local, per-user settings) ----------------------------------
+.claude/settings.local.json
+
+# --- Misc --------------------------------------------------------------------
+*.log
+tmp/
+.tmp/
+node_modules/

@@ -1,0 +1,49 @@
+# https://pre-commit.com
+# Run against every file:  pre-commit run --all-files
+# Update hook versions:    pre-commit autoupdate
+---
+repos:
+  # General hygiene
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md]
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+        args: [--fix=lf]
+      - id: check-yaml
+      - id: check-json
+      - id: check-merge-conflict
+      # check-executables-have-shebangs is left out on purpose: Docker Desktop's
+      # file sharing reports every file in /app as executable, so it always fails
+      - id: check-added-large-files
+        args: [--maxkb=1024]
+      - id: detect-private-key
+
+  # Tools installed in the Dev Container image (see .devcontainer/Dockerfile)
+  - repo: local
+    hooks:
+      - id: gitleaks
+        name: gitleaks (secret scan)
+        entry: gitleaks git --pre-commit --staged --redact --no-banner --verbose
+        language: system
+        pass_filenames: false
+
+      - id: shellcheck
+        name: shellcheck
+        entry: shellcheck
+        language: system
+        types: [shell]
+
+      - id: terraform-fmt
+        name: terraform fmt
+        entry: terraform fmt
+        language: system
+        files: \.(tf|tfvars)$
+
+      - id: vault-policy-fmt
+        name: vault policy fmt
+        entry: bash -c 'for f in "$@"; do vault policy fmt "$f" >/dev/null || exit 1; done' --
+        language: system
+        files: (^|/)policies/.*\.hcl$

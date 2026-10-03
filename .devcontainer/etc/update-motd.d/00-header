@@ -1,0 +1,40 @@
+#!/bin/bash
+# Vault yellow, matches peacock.color #ffcf25 in devcontainer.json
+VAULT_YELLOW='\e[38;2;255;207;37m'
+RESET='\e[0m'
+
+printf '%b' "${VAULT_YELLOW}"
+/usr/bin/figlet -f standard -w 170 "Vault"
+printf '%b' "${RESET}"
+
+if [[ $CODESPACES == true ]]; then
+  VAULT_UI_URL="https://${CODESPACE_NAME}-8200.app.github.dev/ui"
+else
+  VAULT_UI_URL="http://localhost:8200/ui"
+fi
+
+if vault status > /dev/null 2>&1; then
+  VAULT_STATUS='\e[32mrunning'
+else
+  VAULT_STATUS='\e[31mnot reachable'
+fi
+
+printf "\n"
+printf '\e[33;0;36m'"Welcome! You are running in a HashiCorp Vault DevContainer.\n"
+printf '\e[33;0;36m'"Have a look at the Dockerfile to get deeper insight into your environment.\n"
+printf "\n"
+printf '\e[33;1;93m'"Documentation: \e[38;5;198m https://developer.hashicorp.com/vault/docs\n"
+printf "\n"
+printf '\e[33;1;93m * %s: %b\n' "$(vault version | cut -d' ' -f1-2)" "${VAULT_STATUS}"
+printf '\e[33;1;93m * Vault UI: \e[38;5;198m %s\n' "${VAULT_UI_URL}"
+printf '\e[33;1;93m * Vault Address: \e[38;5;198m %s\n' "${VAULT_ADDR}"
+printf '\e[33;1;93m'" * Root Token: \e[38;5;198m root\n"
+printf '\e[33;1;93m * Current Token: \e[38;5;198m %s \e[0;36m(change for all terminals: vault login)\n' "$(vault print token 2>/dev/null)"
+printf '\e[33;1;93m'" * Share a Variable: \e[38;5;198m vexport VAULT_NAMESPACE=admin \e[0;36m(remove: vunset VAULT_NAMESPACE)\n"
+printf '\e[33;1;93m'" * Vault Status: \e[38;5;198m vault status\n"
+printf '\e[33;1;93m'" * List Secrets Engines: \e[38;5;198m vault secrets list\n"
+printf '\e[33;1;93m'" * Write a Secret: \e[38;5;198m vault kv put secret/hello foo=bar\n"
+printf '\e[33;1;93m'" * Read a Secret: \e[38;5;198m vault kv get secret/hello\n"
+printf '\e[33;1;93m'" * Login to GitHub: \e[38;5;198m gh auth login\n"
+printf '\e[33;1;93m'" * Login to HCP: \e[38;5;198m hcp auth login\n"
+printf '%b\n' "${RESET}"
