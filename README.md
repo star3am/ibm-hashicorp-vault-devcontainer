@@ -549,7 +549,11 @@ This container runs Vault in **dev mode**: in-memory storage, auto-unsealed, TLS
 
 ## 🙏 Credits
 
-Inspired by [btkrausen/vault-codespaces](https://github.com/btkrausen/vault-codespaces) and [star3am/k3s-devcontainer](https://github.com/star3am/k3s-devcontainer).
+Inspired by:
+
+- [hashicorp/vault#31578](https://github.com/hashicorp/vault/pull/31578): *Feature: adding a Dev Container to Vault*, my PR to the Vault project
+- [btkrausen/vault-codespaces](https://github.com/btkrausen/vault-codespaces)
+- [star3am/k3s-devcontainer](https://github.com/star3am/k3s-devcontainer)
 
 <div align="center">
 
