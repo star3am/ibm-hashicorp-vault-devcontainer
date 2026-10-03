@@ -551,9 +551,24 @@ This container runs Vault in **dev mode**: in-memory storage, auto-unsealed, TLS
 
 Inspired by:
 
+- [star3am/hashiqube](https://github.com/star3am/hashiqube): *HashiQube*, a hands-on DevOps lab that runs every HashiCorp product in a GitHub Codespace or Docker container
 - [hashicorp/vault#31578](https://github.com/hashicorp/vault/pull/31578): *Feature: adding a Dev Container to Vault*, my PR to the Vault project
 - [btkrausen/vault-codespaces](https://github.com/btkrausen/vault-codespaces)
 - [star3am/k3s-devcontainer](https://github.com/star3am/k3s-devcontainer)
+
+---
+
+## 👋 About Me
+
+My name is **Riaan Nolan**. I'm a DevOps engineer, born in South Africa and now based in Brisbane, Australia. I started as a web developer in 2000, moved into systems administration, and since then have focused on automation, and on infrastructure and configuration as code. Along the way I've worked for multinational companies in Portugal, Germany, China, South Africa, the United States and Australia, often with distributed teams. I was a Director of DevOps in South Africa, then moved to Australia and went back to hands-on engineering.
+
+I've been a **HashiCorp Ambassador** since 2021, and I'm a **HashiCorp Core Contributor** and **Certified Terraform Instructor**, with Vault and Terraform certifications. I'm passionate about the DevOps movement and about building proof-of-concept projects that let people *learn by doing*. That's why I created [**HashiQube**](https://github.com/star3am/hashiqube), and it's the idea behind this Super Dev Container too.
+
+Connect with me on [LinkedIn](https://www.linkedin.com/in/riaannolan/), see my certifications on [Credly](https://www.credly.com/users/riaan-nolan.e657145c), or find my talks on [Sessionize](https://sessionize.com/riaan-nolan).
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/star3am/hashiqube/master/images/hashicorp-badges.png" alt="My HashiCorp badges" width="720">
+</p>
 
 <div align="center">
 
