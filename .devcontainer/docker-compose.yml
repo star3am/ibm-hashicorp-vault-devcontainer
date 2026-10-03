@@ -6,11 +6,15 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    # Allows Vault to lock memory (mlock) so secrets are never swapped to disk
-    cap_add:
-      - IPC_LOCK
-    # Run Vault in dev mode as the container's main process (in-memory, unsealed, root token "root")
-    command: ["server", "-dev"]
+    # Forward stop signals and reap zombie processes
+    init: true
+    # Run Vault in dev mode (in-memory, unsealed, root token "root") in the background,
+    # so the container stays up even if Vault fails to start. Vault's output goes to
+    # `docker logs` and /tmp/vault.log, which the welcome banner points to.
+    entrypoint:
+      - /bin/sh
+      - -c
+      - docker-entrypoint.sh server -dev 2>&1 | tee /tmp/vault.log & exec sleep infinity
     ports:
       - "8200:8200" # vault api and ui
     volumes:
@@ -25,3 +29,6 @@ services:
     environment:
       - GPG_TTY=/dev/pts/1
       - VAULT_ADDR=http://127.0.0.1:8200
+      # Dev mode never locks memory, so skip the image's setcap step. It fails
+      # where the capability isn't available (e.g. GitHub Codespaces) and stops the container
+      - SKIP_SETCAP=true

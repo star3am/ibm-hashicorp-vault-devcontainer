@@ -16,7 +16,7 @@ fi
 if vault status > /dev/null 2>&1; then
   VAULT_STATUS='\e[32mrunning'
 else
-  VAULT_STATUS='\e[31mnot reachable'
+  VAULT_STATUS='\e[31mnot reachable \e[0;36m(starting? check: cat /tmp/vault.log)'
 fi
 
 printf "\n"

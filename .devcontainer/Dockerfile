@@ -74,5 +74,5 @@ ENV VAULT_ADDR=http://127.0.0.1:8200 \
 
 EXPOSE 8200
 
-# Entrypoint and CMD are inherited from hashicorp/vault (docker-entrypoint.sh server -dev),
-# so the container runs a Vault dev server as its main process.
+# docker-compose.yml starts the Vault dev server in the background with the image's own
+# docker-entrypoint.sh, logging to /tmp/vault.log, so the container stays up if Vault fails.

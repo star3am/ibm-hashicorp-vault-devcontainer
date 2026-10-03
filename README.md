@@ -51,7 +51,7 @@ Everything below is already installed when the container opens.
 
 | Tool | Version | What it's for | Try it |
 |---|---|---|---|
-| **Vault** server + CLI | `latest` image, set with the `VAULT_VERSION` build arg | Secrets management. Runs as the container's main process in **dev mode**: in-memory, unsealed, root token `root` | `vault status` |
+| **Vault** server + CLI | `latest` image, set with the `VAULT_VERSION` build arg | Secrets management. Runs in the background in **dev mode**: in-memory, unsealed, root token `root`. Its logs are in `/tmp/vault.log` | `vault status` |
 | **Vault UI** | Same as Vault | Web console for secrets, policies and auth methods | [localhost:8200/ui](http://localhost:8200/ui) |
 | **Vault MCP Server** | `0.2.0`, set with the `VAULT_MCP_SERVER_VERSION` build arg | Lets AI assistants (Claude Code, Copilot agent mode) operate Vault through plain-language prompts | `vault-mcp-server --version` |
 | **Terraform** | Latest release when the image is built | Manage Vault as code with the [Vault provider](https://registry.terraform.io/providers/hashicorp/vault/latest/docs) | `terraform version` |
@@ -516,7 +516,7 @@ After changing any of these, run `F1` → **Dev Containers: Rebuild Container**.
 
 | Symptom | Fix |
 |---|---|
-| Banner says **not reachable** | Vault is still starting. Wait a few seconds and run `vault status`. |
+| Banner says **not reachable** | Vault may still be starting: wait a few seconds and run `vault status`. If it stays down, `cat /tmp/vault.log` shows why. |
 | `permission denied` everywhere | Your token changed. Run `vault print token`, then `echo root \| vault login -`. |
 | Port 8200 already in use | Another Vault is running on your host. Stop it, or change the port mapping in `docker-compose.yml`. |
 | Variables "stuck" from earlier | Run `cat ~/.vault.env`, then `vunset <NAME>`. |
