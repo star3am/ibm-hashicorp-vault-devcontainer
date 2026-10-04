@@ -222,7 +222,7 @@ your-repo/
 
 - **Git hooks** are only installed if your repo has a `.pre-commit-config.yaml`. Repos without one aren't affected.
 - **Your `.gitignore`**: copy the *Vault* and *Terraform* blocks from [ours](.gitignore) so tokens and state files never get committed.
-- **Workspace colours**: the yellow theme comes from `devcontainer.json`, so it comes with you. `.vscode/settings.json` is optional.
+- **Workspace colours**: the Vault-yellow theme is set in `devcontainer.json`, so it comes with the folder automatically.
 - **Port 8200** must be free on your machine. Run one Vault dev container at a time, or change the port mapping in `docker-compose.yml`.
 
 ---
@@ -514,8 +514,8 @@ After changing any of these, run `F1` → **Dev Containers: Rebuild Container**.
 │   └── etc/
 │       ├── profile.d/vault-env.sh     # vexport / vunset shared-terminal helpers
 │       └── update-motd.d/00-header    # The welcome banner
-├── .vscode/settings.json          # Vault-yellow workspace theme
 ├── .gitignore
+├── .pre-commit-config.yaml        # Git hooks: gitleaks, shellcheck, YAML/JSON checks
 └── README.md
 ```
 
