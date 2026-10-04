@@ -4,6 +4,8 @@
 
 **A ready-to-run HashiCorp Vault playground. Open it, and you have a running Vault with the tools around it.**
 
+**🌍 In GitHub Codespaces, your Vault is live on the internet.** It gets its own HTTPS URL, so you can quickly test integrations with CI pipelines, cloud services, webhooks and other systems. [See how ↓](#-your-vault-on-the-internet-codespaces)
+
 [![Open in Dev Containers](https://img.shields.io/static/v1?label=Dev%20Containers&message=Open&color=ffcf25&logo=visualstudiocode&logoColor=15202b&labelColor=15202b)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/star3am/ibm-hashicorp-vault-devcontainer)
 
 ![Vault](https://img.shields.io/badge/Vault-latest-ffcf25?logo=vault&logoColor=15202b&labelColor=15202b)
@@ -167,6 +169,44 @@ When VS Code prompts you, click **Reopen in Container**, or run `F1` → **Dev C
 ### Log in to the UI
 
 The Vault UI **opens in a browser tab automatically** when the container starts. If it doesn't, for example because a pop-up blocker stopped it, open **http://localhost:8200/ui**. In Codespaces, use the **Ports** tab and click the globe icon next to *Vault UI & API*. Then choose **Token** and enter `root`.
+
+---
+
+## 🌍 Your Vault on the internet (Codespaces)
+
+Every Codespace gives Vault its own HTTPS address:
+
+```text
+https://<your-codespace-name>-8200.app.github.dev
+```
+
+The welcome banner shows your exact URL. The port is **private** to start with: only you, signed in to GitHub, can open it. To let **other systems** reach it, such as a GitHub Actions workflow, a cloud function, a webhook or a colleague's laptop, make the port **public**:
+
+- **Ports** tab → right-click **Vault UI & API (8200)** → **Port Visibility** → **Public**
+- or, from a terminal signed in with `gh`: `gh codespace ports visibility 8200:public -c $CODESPACE_NAME`
+
+Anything can then use it like any other Vault:
+
+```bash
+export VAULT_ADDR=https://<your-codespace-name>-8200.app.github.dev
+curl -s $VAULT_ADDR/v1/sys/health | jq
+vault kv get secret/hello
+```
+
+This works well for live demos, trying out the Vault integration of a SaaS product or a Kubernetes cluster, or running a CI pipeline against a real Vault without building any infrastructure.
+
+> [!CAUTION]
+> **A public port means anyone with the URL can reach your Vault**, and dev mode's root token `root` is well known. Before making the port public, replace it:
+>
+> ```bash
+> vault token create -policy=root -orphan -field=token | vault login -   # new, secret root token
+> vault token revoke root                                                # the well-known one stops working
+> ```
+>
+> - Give external systems **narrowly scoped tokens** (see [the policies example in the guided tour](#-guided-tour-a-10-minute-proof-of-concept)), never your root token.
+> - Use **test data only**. Dev mode keeps everything in memory without TLS inside the container.
+> - Set the port back to **Private** when you're done, or stop the Codespace. Codespaces also stop on their own after a period of inactivity.
+> - After revoking `root`, the Vault MCP server (configured with `root`) stops working until the container restarts. A restart also brings back a fresh dev Vault with `root`.
 
 ---
 
@@ -562,7 +602,7 @@ Inspired by:
 
 My name is **Riaan Nolan**. I'm a DevOps engineer, born in South Africa and now based in Brisbane, Australia. I started as a web developer in 2000, moved into systems administration, and since then have focused on automation, and on infrastructure and configuration as code. Along the way I've worked for multinational companies in Portugal, Germany, China, South Africa, the United States and Australia, often with distributed teams. I was a Director of DevOps in South Africa, then moved to Australia and went back to hands-on engineering.
 
-I've been a **HashiCorp Ambassador** since 2021, and I'm a **HashiCorp Core Contributor** and **Certified Terraform Instructor**, with Vault and Terraform certifications. I'm passionate about the DevOps movement and about building proof-of-concept projects that let people *learn by doing*. That's why I created [**HashiQube**](https://github.com/star3am/hashiqube), and it's the idea behind this Super Dev Container too.
+I've been a **HashiCorp Ambassador** since 2021 until 2025 and I'm a **HashiCorp Core Contributor** and **Certified Terraform Instructor**, with Vault and Terraform certifications. I'm passionate about the DevOps movement and about building proof-of-concept projects that let people *learn by doing*. That's why I created [**HashiQube**](https://github.com/star3am/hashiqube), and it's the idea behind this Super Dev Container too.
 
 Connect with me on [LinkedIn](https://www.linkedin.com/in/riaannolan/), see my certifications on [Credly](https://www.credly.com/users/riaan-nolan.e657145c), or find my talks on [Sessionize](https://sessionize.com/riaan-nolan).
 
